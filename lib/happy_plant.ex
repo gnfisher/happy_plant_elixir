@@ -1,18 +1,9 @@
 defmodule HappyPlant do
-  @moduledoc """
-  Documentation for HappyPlant.
-  """
+  defmodule Plant do
+    defstruct height: 0, health: 3
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> HappyPlant.hello
-      :world
-
-  """
-  def hello do
-    :world
+    def create() do
+      %HappyPlant.Plant{}
+    end
   end
 end
