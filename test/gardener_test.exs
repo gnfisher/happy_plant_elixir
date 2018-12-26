@@ -1,19 +1,8 @@
-defmodule HappyPlantTest do
+defmodule HappyPlant.GardenerTest do
   use ExUnit.Case
   use Timex
-  doctest HappyPlant
 
-  test "create/0 creates a new plant with health 3, height 0" do
-    assert HappyPlant.Plant.create() == %HappyPlant.Plant{health: 3, height: 0}
-  end
-
-  test "create_at/1 creates a new plant with last watered equal to its argument" do
-    timestamp = Timex.now()
-
-    result = HappyPlant.Plant.create_at(timestamp)
-
-    assert result.last_watered == timestamp
-  end
+  doctest HappyPlant.Gardener
 
   describe "water/2" do
     test "deducts 1 health if less than 11 seconds have passed" do
@@ -21,7 +10,7 @@ defmodule HappyPlantTest do
       three_seconds_from_now = Timex.shift(timestamp, seconds: 3)
       plant = HappyPlant.Plant.create_at(timestamp)
 
-      result = HappyPlant.Plant.water(plant, three_seconds_from_now)
+      result = HappyPlant.Gardener.water(plant, three_seconds_from_now)
 
       assert result.health == plant.health - 1
     end
@@ -31,7 +20,7 @@ defmodule HappyPlantTest do
       thirteen_seconds_from_now = Timex.shift(timestamp, seconds: 13)
       plant = HappyPlant.Plant.create_at(timestamp)
 
-      result = HappyPlant.Plant.water(plant, thirteen_seconds_from_now)
+      result = HappyPlant.Gardener.water(plant, thirteen_seconds_from_now)
 
       assert result.health == plant.health + 1
     end
@@ -41,7 +30,7 @@ defmodule HappyPlantTest do
       thirty_seconds_from_now = Timex.shift(timestamp, seconds: 45)
       plant = HappyPlant.Plant.create_at(timestamp)
 
-      result = HappyPlant.Plant.water(plant, thirty_seconds_from_now)
+      result = HappyPlant.Gardener.water(plant, thirty_seconds_from_now)
 
       assert result.health == plant.health - 3
     end
